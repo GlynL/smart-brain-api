@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
 const knex = require("knex");
+const morgan = require("morgan");
 require("dotenv").config();
 
 const register = require("./controllers/register");
@@ -12,20 +13,25 @@ const image = require("./controllers/image");
 
 const db = knex({
   client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "Seebogbog1",
-    database: "smart_brain"
-  }
+  connection: process.env.POSTGRES_URI
 });
 
 const app = express();
+console.log("wtf");
+console.log("I give up with docker-compose detecting changes");
+console.log("ughhhhh");
+console.log("check");
+console.log("omg it works");
+console.log("wtf");
+console.log("that was wayyy too hard");
+console.log("yeahhh");
 
+app.use(morgan("combined"));
 app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
+  res.send("its workin");
   res.send(db.users);
 });
 app.post("/signin", signin.handleSignin(db, bcrypt));

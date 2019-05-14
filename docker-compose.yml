@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  # backend api
+  smart-brain--api:
+    container_name: backend
+    # image: node:10.9.0
+    build: ./
+    command: npm start
+    working_dir: /usr/src/smart-brain--api
+    environment:
+      POSTGRES_URI: postgres://sally:secret@postgres:5432/smart-brain-docker
+      # deprecated - https://www.udemy.com/the-complete-junior-to-senior-web-developer-roadmap/learn/v4/t/lecture/11402622?start=0
+    # links:
+    # - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - C:\Users\glyn_\Documents\Coding\junior-to-senior\code-analysis\smart-brain\smart-brain--api/:/usr/src/smart-brain--api
+
+  # postgres
+  postgres:
+    environment:
+      POSTGRES_USER: sally
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    container_name: postgres
+    build: ./postgres
+    ports:
+      - "5432"
+# docker-compose down
+# docker-compose up --build
